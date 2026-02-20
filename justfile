@@ -16,6 +16,12 @@ check:
     @printf '\033[1;36m--- just ---\033[0m\n'
     @just --version
     @echo ""
+    @printf '\033[1;36m--- Docker ---\033[0m\n'
+    @docker --version 2>/dev/null || echo "Docker CLI is not available"
+    @echo ""
+    @printf '\033[1;36m--- Codex ---\033[0m\n'
+    @codex --version 2>/dev/null || echo "Codex CLI is not available"
+    @echo ""
     @printf '\033[1;36m--- DB Connectivity ---\033[0m\n'
     @pg_isready -h db -p 5432 > /dev/null 2>&1 && echo "DB is available" || echo "DB is not available"
     @echo ""

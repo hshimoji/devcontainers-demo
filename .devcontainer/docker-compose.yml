@@ -6,6 +6,7 @@ services:
     volumes:
       - ..:/workspace:cached
       - ${HOME}/.pgpass:/home/vscode/.pgpass:ro
+      - /var/run/docker.sock:/var/run/docker.sock
     command: sleep infinity
     depends_on:
       - db
