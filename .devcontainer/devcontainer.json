@@ -5,14 +5,16 @@
   "workspaceFolder": "/workspace",
   "remoteUser": "vscode",
   "updateRemoteUserUID": true,
-  "initializeCommand": "echo HOST_USER=$USER > .devcontainer/.env && (test -f $HOME/.pgpass || (touch $HOME/.pgpass && chmod 600 $HOME/.pgpass))",
+  "initializeCommand": "test -f $HOME/.pgpass || (touch $HOME/.pgpass && chmod 600 $HOME/.pgpass)",
   "features": {
     "ghcr.io/devcontainers/features/go:1": {
       "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
     }
   },
   "containerEnv": {
-    "PGUSER": "${localEnv:USER}",
     "APPENV": "local"
   },
   "customizations": {
@@ -21,10 +23,12 @@
         "golang.go",
         "yzhang.markdown-all-in-one",
         "bierner.markdown-mermaid",
-        "ms-azuretools.vscode-docker"
+        "ms-azuretools.vscode-docker",
+        "openai.chatgpt"
       ]
     }
   },
   "forwardPorts": [5432],
-  "postCreateCommand": "go mod download"
+  "postCreateCommand": "go mod download && npm install -g @openai/codex",
+  "postAttachCommand": "just check"
 }
