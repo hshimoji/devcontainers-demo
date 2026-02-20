@@ -2,6 +2,34 @@
 
 A Dev Container sample project with Go + PostgreSQL.
 
+## Architecture
+
+```mermaid
+graph LR
+    subgraph Host["Host (macOS)"]
+        VSCode[VS Code]
+        pgpass[~/.pgpass]
+        workspace[project dir]
+    end
+
+    subgraph Docker["Docker Compose"]
+        subgraph App["app container"]
+            Go[Go / gcloud / psql / just]
+            pgpass_m[~/.pgpass<br/>read-only]
+        end
+        subgraph DB["db container"]
+            PG[(PostgreSQL 17<br/>trust auth)]
+        end
+        vol[(postgres-data<br/>volume)]
+    end
+
+    VSCode -- "Reopen in Container" --> App
+    workspace -- "bind mount" --> Go
+    pgpass -- "bind mount :ro" --> pgpass_m
+    Go -- "host=db:5432<br/>PGUSER=$USER" --> PG
+    PG --- vol
+```
+
 ## Included
 
 - Go (latest)
