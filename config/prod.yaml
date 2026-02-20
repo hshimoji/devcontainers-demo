@@ -1,0 +1,4 @@
+db:
+  host: CHANGEME
+  port: 5432
+  dbname: postgres

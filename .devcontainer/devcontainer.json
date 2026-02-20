@@ -1,0 +1,29 @@
+{
+  "name": "Go + PostgreSQL Dev",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": true,
+  "initializeCommand": "echo HOST_USER=$USER > .devcontainer/.env && (test -f $HOME/.pgpass || (touch $HOME/.pgpass && chmod 600 $HOME/.pgpass))",
+  "features": {
+    "ghcr.io/devcontainers/features/go:1": {
+      "version": "latest"
+    }
+  },
+  "containerEnv": {
+    "PGUSER": "${localEnv:USER}",
+    "APPENV": "local"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "golang.go",
+        "yzhang.markdown-all-in-one",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  },
+  "forwardPorts": [5432],
+  "postCreateCommand": "go mod download"
+}
